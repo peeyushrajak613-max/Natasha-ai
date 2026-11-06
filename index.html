@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natasha AI</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #080b14;
+  color: white;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100vh;
+  padding: 35px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-size: 32px;
+  letter-spacing: 7px;
+  margin-top: 35px;
+}
+
+.subtitle {
+  color: #8994ad;
+  font-size: 11px;
+  letter-spacing: 4px;
+}
+
+.orb {
+  width: 190px;
+  height: 190px;
+  margin-top: 100px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    #b5a7ff,
+    #6253d9 35%,
+    #151d46 70%
+  );
+  box-shadow: 0 0 45px #6655ff80,
+              inset 0 0 35px #ffffff55;
+  animation: pulse 3s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(1.07);
+    box-shadow: 0 0 75px #7766ff;
+  }
+}
+
+.status {
+  margin-top: 45px;
+  color: #aab2c9;
+  font-size: 14px;
+}
+
+button {
+  margin-top: 35px;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  border: 1px solid #8173ff;
+  background: #211e48;
+  color: white;
+  font-size: 28px;
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: 50px;
+  color: #58627a;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+  <h1>NATASHA</h1>
+  <div class="subtitle">PERSONAL AI ASSISTANT</div>
+
+  <div class="orb"></div>
+
+  <div class="status" id="status">
+    SYSTEM ONLINE
+  </div>
+
+  <button onclick="activate()" id="mic">
+    🎙
+  </button>
+
+  <div class="footer">
+    DESIGNED FOR PIYUSH
+  </div>
+
+</div>
+
+<script>
+let active = false;
+
+function activate() {
+  active = !active;
+
+  document.getElementById("status").innerText =
+    active ? "LISTENING MODE (DEMO)" : "SYSTEM ONLINE";
+}
+</script>
+</body>
+</html>
