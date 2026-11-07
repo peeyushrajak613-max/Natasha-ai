@@ -1,21 +1,36 @@
-  <div class="footer">
-    DESIGNED FOR PIYUSH
-  </div>
 
-</div>
-
-<script>
-let active = false;
-
-function activate() {
-  active = !active;
-
-  document.getElementById("status").innerText =
-    active ? "LISTENING MODE (DEMO)" : "SYSTEM ONLINE";
-}
-</script>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<title>NATASHA</title>
+<meta name="theme-color" content="#060812">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="splash"><div class="orb sm"></div><h1>NATASHA</h1></div>
+<main>
+  <header>
+    <h1>NATASHA</h1>
+    <div class="bar">
+      <button id="lang" aria-label="Switch language">EN</button>
+      <button id="mute" aria-label="Voice output on" aria-pressed="false">🔊</button>
+    </div>
+  </header>
+  <section id="stage">
+    <button id="orb" class="orb idle" aria-label="Tap to speak"></button>
+    <p id="status">Tap the orb and speak</p>
+  </section>
+  <section id="log" aria-live="polite"></section>
+  <form id="form" autocomplete="off">
+    <input id="text" placeholder="Type a message" enterkeyhint="send">
+    <button type="submit" aria-label="Send">➤</button>
+  </form>
+</main>
+<script src="/app.js"></script>
 </body>
 </html>
-
-   
-
