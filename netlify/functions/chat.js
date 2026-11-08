@@ -18,14 +18,10 @@ exports.handler = async (event) => {
     return json({ error: "Anthropic API key is missing." }, 500);
   }
 
-  if (!event.body || event.body.length > 30000) {
-    return json({ error: "Request too large." }, 413);
-  }
-
   let body;
 
   try {
-    body = JSON.parse(event.body);
+    body = JSON.parse(event.body || "{}");
   } catch {
     return json({ error: "Invalid request." }, 400);
   }
@@ -51,14 +47,6 @@ exports.handler = async (event) => {
     return json({ error: "No valid messages." }, 400);
   }
 
-  const SYSTEM = `You are NATASHA, a calm, intelligent and helpful female voice assistant.
-Keep replies short, natural and conversational.
-If the user speaks Hindi, reply in Hindi using Devanagari.
-If the user speaks Hinglish, reply in Hinglish.
-If the user speaks English, reply in English.
-Match the user's language.
-Avoid unnecessary markdown, lists and emojis because replies are spoken aloud.`;
-
   try {
     const response = await fetch(
       "https://api.anthropic.com/v1/messages",
@@ -70,10 +58,10 @@ Avoid unnecessary markdown, lists and emojis because replies are spoken aloud.`;
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          model: "claude-sonnet-5-5",
+          model: "claude-sonnet-5",
           max_tokens: 1000,
-          system: SYSTEM,
-          messages: messages
+          system: "You are NATASHA, a calm and intelligent female voice assistant. Reply naturally and briefly. Match the user's language. Use Hindi for Hindi, Hinglish for Hinglish, and English for English.",
+          messages
         })
       }
     );
@@ -82,14 +70,7 @@ Avoid unnecessary markdown, lists and emojis because replies are spoken aloud.`;
 
     if (!response.ok) {
       console.error("Anthropic error:", response.status, data);
-
-      return json({
-        error: response.status === 401
-          ? "Invalid Anthropic API key."
-          : response.status === 429
-          ? "Too many requests. Please wait."
-          : "Claude is temporarily unavailable."
-      }, 502);
+      return json({ error: "Claude is temporarily unavailable." }, 502);
     }
 
     const reply = (data.content || [])
@@ -109,3 +90,5 @@ Avoid unnecessary markdown, lists and emojis because replies are spoken aloud.`;
     return json({ error: "Could not connect to Claude." }, 502);
   }
 };
+      
+  
